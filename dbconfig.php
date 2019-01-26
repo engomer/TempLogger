@@ -1,6 +1,6 @@
 <?php
-define('DB_USER', "user_8426648");
-define('DB_PASSWORD', "2sXy927D4");
-define('DB_SERVER' , "94.73.146.24");
-define('DB_DATABASE', "db_ogencay_com");
+define('DB_USER', "bde113a49769a2");
+define('DB_PASSWORD', "b582a1de");
+define('DB_SERVER' , "us-cdbr-iron-east-01.cleardb.net");
+define('DB_DATABASE', "heroku_5bf1bf6802d8332");
 ?>
