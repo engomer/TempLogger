@@ -73,6 +73,7 @@ $chart_data = substr($chart_data, 0, -2);
 		    xkey:'timestamp',
 		    ykeys:['tempin', 'tempout', 'hum'],
 		    labels:['Sicaklik', 'Buzdolabi', 'Nem'],
+			lineColors:['#ffff00' , '#3ADFFF' , '#B000E8' ],
 		    hideHover:'auto',
 		    stacked:true
 		});
