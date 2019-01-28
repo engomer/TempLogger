@@ -1,7 +1,7 @@
 <?php 
 
 $filepath = realpath (dirname(__FILE__));
-require_once($filepath."/dbconfig.php");
+require_once($filepath."/api/dbconfig.php");
 
 $connect = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD, DB_DATABASE);
 $query = "SELECT * FROM log";
@@ -32,7 +32,7 @@ $chart_data = substr($chart_data, 0, -2);
 			button{border-radius: 8px; padding: 12px 28px; font-size: 16px;}
 			.headers{ color:#000000; }
 			.buttons{margin-right:15px; margin-left:15px; }
-			.button:hover { background-color: #4CAF50; /* Green */  color: white;}
+			.button:hover { background-color: #4CAF50; color: white;}
 			img{width:80px; height:80px; }
 			th{text-align:center;}
 			</style>
@@ -47,7 +47,7 @@ $chart_data = substr($chart_data, 0, -2);
 		</p>
 		<table align="center" style="width:70%">
 			<tr >
-				<?php include 'now.php'; ?>
+				<?php include 'api/now.php'; ?>
 			</tr>
 			<tr align="center" style="text-align:center;">
 				<th align="center" style="text-align:center;"><h1>Graph for all data</h1></th>
@@ -58,12 +58,12 @@ $chart_data = substr($chart_data, 0, -2);
 		</table>
 		<table align="center">	
 			<tr "width:50px;">
-				<td class="buttons" style="padding:70px;"><a href="http://ogencay.com/wp-content/api/daily_index.php"><button>Display Daily Logs</button></a></td>
-				<td class="buttons" style="padding:70px;" ><a href="http://ogencay.com/wp-content/api/all_index.php"><button>Display All Logs</button></a></td>
+				<td class="buttons" style="padding:70px;"><a href="templog.herokuapp.com/api/daily_index.php"><button>Display Daily Logs</button></a></td>
+				<td class="buttons" style="padding:70px;" ><a href="templog.herokuapp.com/api/all_index.php"><button>Display All Logs</button></a></td>
 			</tr>
 			
 		</table>
-		</table>
+		
 	</body>
     
     <script>

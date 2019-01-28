@@ -25,19 +25,16 @@
 #include <ESP8266WebServer.h>
 //LIBRARY DECLERATION ENDS
 
-//SERVER STAFF STARTS
-ESP8266WebServer localServer(80);
-String page= "";
-//SERVER STAFF ENDS
-
 //WIFI STAFF STARTS
-const char* ssid= "Musluk";
-const char* pwd = "mamamamimimimikrofonsov";
+const char* ssid= "musluk";
+const char* pwd = "12345678";
 //WIFI STAFF ENDS
+
 //RESET STAFF STARTS
 void(* resetFunc) (void) = 0;
 int count = 0;
 //RESET STAFF ENDS
+
 //EMAIL STAFF STARTS
 const char server[] = "mail.ogencay.com";
 const char* email = "sensor@ogencay.com";
@@ -46,12 +43,6 @@ const char* pwdmail = "1510OMer";
 const char* pwd64 = "MTUxME9NZXI=";
 WiFiClient espClient; 
 //EMAIL STAFF ENDS
-
-//CLOUD STAFF STARTS
-String apiKey = "XSKI0MAE18GL8JP2";
-const char* cloudServer = "api.thingspeak.com";
-WiFiClient cloudClient;
-//CLOUD STAFF ENDS
 
 //DATABASE STAFF BEGINS
 char host[] = "templog.herokuapp.com";
@@ -92,7 +83,6 @@ void buzerror();
 void connect2WiFi();
 void sendDB(float tempin,float tempout,float hum);
 void chk();
-void counter();
 //FUNCTIONS DECLERATION ENDS
 
 void setup() {
@@ -115,25 +105,24 @@ void setup() {
 
 void loop() 
 { 
-  count = count +1;
-  if(count % 4 == 0){measure(); print2screen(tempin,tempout,hum);}
-  if(count % 18 == 0 ){measure(); print2screen(tempin,tempout,hum); chk(); Serial.println(count);}
-  if(count % 60 == 0 ){connect2WiFi();}
-  if(count % 360 == 0){sendDB(tempin,tempout,hum);}
-  if(count % 720 == 0){count = 0;}
+ count = count +1;
+  if(count % 4 == 0){measure(); print2screen(tempin,tempout,hum);} //MEASURE AND PRINT TO SCREEN THE VALUES FOR 40 SEC CYCLE 
+  if(count % 60 == 0 ){connect2WiFi(); chk(); } //REFRESH WIFI EVERY 10 MINUTE AND CHECK VALUES 
+  if(count % 360 == 0){sendDB(tempin,tempout,hum);}// SEND TO DB FOR 1 HOUR CYCLE
+  if(count % 720 == 0){count = 0;} //SET COUNTER TO 0 TO REDUCE OVERSIZE
   delay(10000);
 }
-void chk()
+void chk() // CHECKS VALUES IF THEY ARE NOT GOOD SENDS MAIL AND BEEPS THE BUZZER
 {
   if(isinok(tempin)==0 || isouttempok(tempout)==0 || ishumok(hum)==0)
   {
-   //sendEmail(tempin,tempout,hum);
+   sendEmail(tempin,tempout,hum);
    buzerror();
    delay(1000); 
   }
 }
 
-void measure()
+void measure() // MEASURE 3 VALUES ROOM TEMPERATURE, HUMIDITY AND FRIDGE TEMPERATURE
 {
   DHT.read11(DHTPIN);
   wire.requestTemperatures();
@@ -156,7 +145,7 @@ void measure()
   delay(600);
 }
 
-void print2screen(float tempin, float tempout, float hum)
+void print2screen(float tempin, float tempout, float hum) // PRINTS THE MEASUREMENT VALUES TO THE LCD SCREEN
 {
   lcd.clear();
   lcd.home();
@@ -170,44 +159,37 @@ void print2screen(float tempin, float tempout, float hum)
   lcd.print(hum ,1);
  }
 
-void printerror(char* error)
+void printerror(char* error) // PRINTS ONE LINE TO LCD
 {
   lcd.clear();
   lcd.home();
   lcd.print(error);
 }
 
-bool isinok(float temp)
+bool isinok(float temp) //CHECKS FRIDGE TEMPERATURE
 {
    if(temp<2 || temp>8)
    {
-    //printerror("Buzdolabi");
     return 0;
    }
    return 1;
 }
 
-bool isouttempok(float temp)
+bool isouttempok(float temp) //CHECKS ROOM TEMPERATURE
 {
   if(temp<15 || temp>25)
   {
-    //printerror("Sıcaklik!!");
     return 0;
   }
   return 1;
 }
-bool ishumok(float hum)
+bool ishumok(float hum) // CHECKS THE HUMIDITIY
 {
-  if(hum>65)
-  {
-    //printerror("Nem > 65");
-    return 0;
-  }
+  if(hum>65) return 0;
   return 1;
 }
-void buzerror()
+void buzerror() //BUZZER BEEP FUNCTION
 {
-  
     delay(200);
     digitalWrite(BUZZERPIN, HIGH);
     delay(200);
@@ -224,12 +206,9 @@ void buzerror()
     digitalWrite(BUZZERPIN, HIGH);
     delay(200);
     digitalWrite(BUZZERPIN, LOW);
-    
-  
-  delay(15000);
 }
 
-void connect2WiFi()
+void connect2WiFi() // CONNECT WIFI AND PRINT CREDITENDALS
 {
   delay(1500);
   Serial.println("Wifi Connecting.....");
@@ -249,7 +228,7 @@ void connect2WiFi()
     Serial.println(WiFi.localIP());
 }
 
-byte sendEmail(float tempin, float tempout, float hum)
+byte sendEmail(float tempin, float tempout, float hum) //SENDS MAIL USING THE ADDRES: sensor@ogencay.com
 {
   
   if (espClient.connect(server, 587) == 1) 
@@ -324,7 +303,7 @@ byte sendEmail(float tempin, float tempout, float hum)
   return 1;
 }
 
-byte emailResp()
+byte emailResp() // READS THE CLIENT FOR E MAIL RESPONSE TO CHECK IT HAS BEEN SENT OR NOT
 {
   byte responseCode;
   byte readByte;
@@ -385,18 +364,4 @@ void sendDB(float tempin,float tempout,float hum)
   Serial.println("closing connection");
   delay(3000);
   
-}
-
-void counter()
-{
-  int i;
-    for(i=count ; i<=720 ; i++)
-    {   
-        delay(10000);
-
-        if(i % 18 == 0 ){measure(); print2screen(tempin,tempout,hum); chk(); Serial.println(count);}
-        if(i % 60 == 0 ){resetFunc();}
-        if(i % 360 == 0){sendDB(tempin,tempout,hum);}
-        if(i % 720 == 0){count = 0;}
-    }
 }
