@@ -58,8 +58,8 @@ $chart_data = substr($chart_data, 0, -2);
 		</table>
 		<table align="center">	
 			<tr "width:50px;">
-				<td class="buttons" style="padding:70px;"><a href="templog.herokuapp.com/api/daily_index.php"><button>Display Daily Logs</button></a></td>
-				<td class="buttons" style="padding:70px;" ><a href="templog.herokuapp.com/api/all_index.php"><button>Display All Logs</button></a></td>
+				<td class="buttons" style="padding:70px;"><a href="/api/daily_index.php"><button>Display Daily Logs</button></a></td>
+				<td class="buttons" style="padding:70px;" ><a href="/api/all_index.php"><button>Display All Logs</button></a></td>
 			</tr>
 			
 		</table>
