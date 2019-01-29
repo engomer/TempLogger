@@ -26,17 +26,17 @@
     </head>
     <body>
         <div align="center">    
-            <h1> Pharmacy of Gençay </h1>
-            <h2> All Logging Reports </h2>
+            <h1> Gençay Eczanesi </h1>
+            <h2> Tüm Değerler </h2>
         </div>
         <table class="table1" align="center">
         <thead>
             <tr>
-                <td>Id</td>
-                <td>Time Stamp</td>
-                <td>Tempin</td>
-                <td>Tempout</td>
-                <td>Hum</td>
+                <td>Num</td>
+                <td>Tarih</td>
+                <td>Buzdolabı</td>
+                <td>Oda</td>
+                <td>Nem</td>
                
             </tr>
         </thead>

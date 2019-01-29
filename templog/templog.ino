@@ -26,8 +26,8 @@
 //LIBRARY DECLERATION ENDS
 
 //WIFI STAFF STARTS
-const char* ssid= "musluk";
-const char* pwd = "12345678";
+const char* ssid= "gencay_eczanesi";
+const char* pwd = "sel20en00";
 //WIFI STAFF ENDS
 
 //RESET STAFF STARTS
@@ -100,7 +100,7 @@ void setup() {
   measure();
   printerror("Hazirlaniyor..");
   delay(10000);
-  print2screen(tempin,tempout,hum);
+  print2screen(tempin,tempout,hum);  
 }
 
 void loop() 
@@ -268,7 +268,7 @@ byte sendEmail(float tempin, float tempout, float hum) //SENDS MAIL USING THE AD
     return 0;
   
   Serial.println(F("Sending To"));
-  espClient.println(F("RCPT To: ogencay98@gmail.com"));
+  espClient.println(F("RCPT To: nermintiftikci@hotmail.com"));
   if (!emailResp()) 
     return 0;
   
@@ -278,7 +278,7 @@ byte sendEmail(float tempin, float tempout, float hum) //SENDS MAIL USING THE AD
     return 0;
   Serial.println(F("Sending email"));
   
-  espClient.println(F("To:  ogencay98@gmail.com"));
+  espClient.println(F("To:  nermintiftikci@hotmail.com"));
   
   espClient.println(F("From: sensor@ogencay.com"));
  

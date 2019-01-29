@@ -41,8 +41,8 @@ $chart_data = substr($chart_data, 0, -2);
 
 	<body >
 		<p>
-			<h1 class="headers" align = center>Temperature and Humidity Sensor</h1>
-			<h1 class="headers" align = center>Pharmacy of Gençay</h2>
+			<h1 class="headers" align = center>Isı Nem Ölçer</h1>
+			<h1 class="headers" align = center>Gençay Eczanesi</h2>
 			</br>
 		</p>
 		<table align="center" style="width:70%">
@@ -50,7 +50,7 @@ $chart_data = substr($chart_data, 0, -2);
 				<?php include 'api/now.php'; ?>
 			</tr>
 			<tr align="center" style="text-align:center;">
-				<th align="center" style="text-align:center;"><h1>Graph for all data</h1></th>
+				<th align="center" style="text-align:center;"><h1>Tüm Değelerin Grafiği</h1></th>
 			</tr>
 			<tr>
 				<td class="linegraph"> <div id="chart"></div> </td>
@@ -58,8 +58,8 @@ $chart_data = substr($chart_data, 0, -2);
 		</table>
 		<table align="center">	
 			<tr "width:50px;">
-				<td class="buttons" style="padding:70px;"><a href="/api/daily_index.php"><button>Display Daily Logs</button></a></td>
-				<td class="buttons" style="padding:70px;" ><a href="/api/all_index.php"><button>Display All Logs</button></a></td>
+				<td class="buttons" style="padding:70px;"><a href="/api/daily_index.php"><button>Günlük Değerleri Göster</button></a></td>
+				<td class="buttons" style="padding:70px;" ><a href="/api/all_index.php"><button>Tüm Değerleri Göster</button></a></td>
 			</tr>
 			
 		</table>
