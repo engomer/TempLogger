@@ -47,7 +47,7 @@ $chart_data = substr($chart_data, 0, -2);
 		</p>
 		<table align="center" style="width:70%">
 			<tr >
-				<?php include 'api/now.php'; ?>
+				<?php include '/api/now.php'; ?>
 			</tr>
 			<tr align="center" style="text-align:center;">
 				<th align="center" style="text-align:center;"><h1>Graph for all data</h1></th>

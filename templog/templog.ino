@@ -346,7 +346,7 @@ void sendDB(float tempin,float tempout,float hum)
   if (!client.connect(host, 80)) { Serial.println("connection failed"); return;}
   
   
-  String url = "/insert.php?tempin=" + String(tempin) +"&tempout=" + String(tempout) + "&hum="+ String(hum);
+  String url = "/api/insert.php?tempin=" + String(tempin) +"&tempout=" + String(tempout) + "&hum="+ String(hum);
   Serial.print("Requesting URL: ");
   Serial.println(url);
   

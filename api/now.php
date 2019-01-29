@@ -13,9 +13,9 @@
         <table class="table1" align="center">
         <thead>
             <tr class="noww">
-                <td><img src="fridge.png" alt="Fridge Image"></td>
-                <td><img src="thermometer.png" alt="Thermometer Image"></td>
-                <td><img src="humidity.png" alt="Humidity Image"></td>
+                <td><img src="/img/fridge.png" alt="Fridge Image"></td>
+                <td><img src="/img/thermometer.png" alt="Thermometer Image"></td>
+                <td><img src="/img/humidity.png" alt="Humidity Image"></td>
                
             </tr>
         </thead>
