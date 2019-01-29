@@ -71,7 +71,7 @@ $chart_data = substr($chart_data, 0, -2);
 		    element : 'chart',
 		    data:[<?php echo $chart_data; ?>],
 		    xkey:'timestamp',
-		    ykeys:['tempin', 'tempout', 'hum'],
+		    ykeys:['tempout', 'tempin', 'hum'],
 		    labels:['Sicaklik', 'Buzdolabi', 'Nem'],
 			lineColors:['#ffff00' , '#3ADFFF' , '#B000E8' ],
 		    hideHover:'auto',
