@@ -48,8 +48,6 @@ $chart_data = substr($chart_data, 0, -2);
 			</br>
 		</p>
 		<table align="center" style="width:70%">
-			<tr><?php $qu = " SELECT TIMESTAMPADD(MONTH,2,'2009-05-18')";
-$r = mysqli_query($connect, $qu); while($dd =mysqli_fetch_array($r)){ $tt = row['TIMESTAMPADD(MONTH,2,'2009-05-18')']} echo $tt; ?> </tr>
 			<tr >
 				<?php include 'api/now.php'; ?>
 			</tr>
