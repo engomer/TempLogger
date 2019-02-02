@@ -10,7 +10,7 @@ $chart_data = '';
 while($row = mysqli_fetch_array($result))
 {
 	$a= row["timestamp"] + '3 HOURS';
- 	$chart_data .= "{ timestamp:'".$a."', tempin:".$row["tempin"].", tempout:".$row["tempout"].", hum:".$row["hum"]."}, ";
+ 	$chart_data .= "{ timestamp:'".$a."', tempin:".$a.", tempout:".$row["tempout"].", hum:".$row["hum"]."}, ";
 }
 $chart_data = substr($chart_data, 0, -2);
 ?>
