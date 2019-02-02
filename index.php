@@ -12,6 +12,8 @@ while($row = mysqli_fetch_array($result))
  	$chart_data .= "{ timestamp:'".$row["timestamp"]."', tempin:".$row["tempin"].", tempout:".$row["tempout"].", hum:".$row["hum"]."}, ";
 }
 $chart_data = substr($chart_data, 0, -2);
+
+
 ?>
 
 
@@ -46,6 +48,8 @@ $chart_data = substr($chart_data, 0, -2);
 			</br>
 		</p>
 		<table align="center" style="width:70%">
+			<tr><?php $qu = " SELECT TIMESTAMPADD(MONTH,2,'2009-05-18')";
+$r = mysqli_query($connect, $qu); echo mysqli_fetch_array($r); ?> </tr>
 			<tr >
 				<?php include 'api/now.php'; ?>
 			</tr>
