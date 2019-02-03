@@ -10,7 +10,7 @@ $result = mysqli_query($connect, $query);
 $chart_data = '';
 while($row = mysqli_fetch_array($result))
 {
-	$end_date = date("Y-m-d h:m:s", mktime($row["timestamp"]))); 
+	$end_date = gmdate("Y-m-d h:m:s", strtotime($row["timestamp"])); 
 	$chart_data .= "{ timestamp:'".$end_date."', tempin:".$row["tempin"].", tempout:".$row["tempout"].", hum:".$row["hum"]."}, ";
 }
 $chart_data = substr($chart_data, 0, -2);
