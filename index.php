@@ -10,8 +10,9 @@ $result = mysqli_query($connect, $query);
 $chart_data = '';
 while($row = mysqli_fetch_array($result))
 {
-	$end_date = date("Y-m-d h:m:s", strtotime("+" .$num_days. " hours", strtotime($row["timestamp"])));
- 	$chart_data .= "{ timestamp:'".$end_date."', tempin:".$row["tempin"].", tempout:".$row["tempout"].", hum:".$row["hum"]."}, ";
+	//$end_date = date("Y-m-d h:m:s", strtotime("+" .$num_days. " hours", strtotime($row["timestamp"])));
+	$end_date = date("Y-M-D h:m:s", strtotime("+ $num_days hours", $row["timestamp"])); 
+	$chart_data .= "{ timestamp:'".$end_date."', tempin:".$row["tempin"].", tempout:".$row["tempout"].", hum:".$row["hum"]."}, ";
 }
 $chart_data = substr($chart_data, 0, -2);
 
