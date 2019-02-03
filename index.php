@@ -3,14 +3,15 @@
 $filepath = realpath (dirname(__FILE__));
 require_once($filepath."/api/dbconfig.php");
 
+$num_days = 3;
 $connect = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD, DB_DATABASE);
 $query = "SELECT * FROM log";
 $result = mysqli_query($connect, $query);
 $chart_data = '';
 while($row = mysqli_fetch_array($result))
 {
-	$end_date = date("Y-m-d h:m:s", strtotime("+" . 03 . " hours", strtotime($row["timestamp"])));
- 	$chart_data .= "{ timestamp:'".$row["timestamp"]."', tempin:".$row["tempin"].", tempout:".$row["tempout"].", hum:".$row["hum"]."}, ";
+	$end_date = date("Y-m-d h:m:s", strtotime("+" .$num_days. " hours", strtotime($row["timestamp"])));
+ 	$chart_data .= "{ timestamp:'".$end_date."', tempin:".$row["tempin"].", tempout:".$row["tempout"].", hum:".$row["hum"]."}, ";
 }
 $chart_data = substr($chart_data, 0, -2);
 
