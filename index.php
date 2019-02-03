@@ -11,9 +11,9 @@ $result = mysqli_query($connect, $query);
 $chart_data = '';
 while($row = mysqli_fetch_array($result))
 {
-	$end_date = date("Y-m-d h:m:s", strtotime("+03 hours", strtotime($row["timestamp"])));
-	echo gmdate("Y-m-d H:i:s", .$row["timestamp"].);
- 	$chart_data .= "{ timestamp:'".$row["timestamp"]."', tempin:".$row["tempin"].", tempout:".$row["tempout"].", hum:".$row["hum"]."}, ";
+	$end_date = date("Y-m-d h:i:s", strtotime("+03 hours", strtotime(.$row["timestamp"].)));
+	echo gmdate("Y-m-d H:m:s", $row["timestamp"]);
+ 	$chart_data .= "{ timestamp:'".$end_date."', tempin:".$row["tempin"].", tempout:".$row["tempout"].", hum:".$row["hum"]."}, ";
 }
 $chart_data = substr($chart_data, 0, -2);
 
