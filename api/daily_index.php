@@ -34,7 +34,7 @@
                     if (!$connect) {
                         die(mysql_error());
                     }
-                    $results = mysqli_query($connect,"SELECT * FROM log WHERE timestamp BETWEEN DATE_SUB(CURDATE(), INTERVAL 1 DAY) AND CURDATE()");
+                    $results = mysqli_query($connect,"SELECT * FROM" .DB_TABLE. "WHERE timestamp BETWEEN DATE_SUB(CURDATE(), INTERVAL 1 DAY) AND CURDATE()");
                     while($row = mysqli_fetch_array($results)) {
                         $end_date = date("Y-m-d H:i:s", strtotime("+" . 3 . " hours", strtotime($row["timestamp"])));
                 ?>
