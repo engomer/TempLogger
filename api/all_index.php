@@ -48,7 +48,7 @@
             if (!$connect) {
                 die(mysql_error());
             }
-            $results = mysqli_query($connect,"SELECT * FROM" .DB_TABLE. "ORDER BY id");
+            $results = mysqli_query($connect,"SELECT * FROM " .DB_TABLE. " ORDER BY id");
             while($row = mysqli_fetch_array($results)) {
                 $end_date = date("Y-m-d H:i:s", strtotime("+" . 3 . " hours", strtotime($row["timestamp"])));
             ?>
