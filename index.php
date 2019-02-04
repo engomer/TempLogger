@@ -3,7 +3,7 @@
 $filepath = realpath (dirname(__FILE__));
 require_once($filepath."/api/dbconfig.php");
 
-$num_days = 3;
+$num_days = 03;
 date_default_timezone_set('Europe/Istanbul');
 $connect = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD, DB_DATABASE);
 $query = "SELECT * FROM log";
