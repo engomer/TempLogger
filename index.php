@@ -56,7 +56,7 @@ $chart_data = substr($chart_data, 0, -2);
 				<?php include 'api/now.php'; ?>
 			</tr>
 			<tr align="center" style="text-align:center;">
-				<th class="graph-header" align="center" style="text-align:center;"><h1>Tüm Değerlerin Grafiği</h1></th>
+				<th class="graph-header" align="center" style="text-align:center;"><h1><center>Tüm Değerlerin Grafiği</center></h1></th>
 			</tr>
 			<tr>
 				<td class="linegraph"> <div id="chart"></div> </td>
