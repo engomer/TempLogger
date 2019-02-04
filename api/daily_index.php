@@ -18,7 +18,6 @@
         <table class="table1" align="center">
         <thead>
             <tr>
-                <td>Num</td>
                 <td>Tarih</td>
                 <td>Buzdolabı</td>
                 <td>Oda</td>
@@ -39,7 +38,6 @@
                         $end_date = date("Y-m-d H:i:s", strtotime("+" . 3 . " hours", strtotime($row["timestamp"])));
                 ?>
                 <tr>
-                    <td><?php echo $row['id']?></td>
                     <td><?php echo $end_date?></td>
                     <td><?php echo $row['tempin']?></td>
                     <td><?php echo $row['tempout']?></td>
