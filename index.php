@@ -12,7 +12,7 @@ $chart_data = '';
 while($row = mysqli_fetch_array($result))
 {
 	$end_date = date("Y-m-d h:i:s \+03:00", strtotime($row["timestamp"]));
- 	$chart_data .= "{ timestamp:'".$end_date."', tempin:".$row["tempin"].", tempout:".$row["tempout"].", hum:".$row["hum"]."}, ";
+ 	$chart_data .= "{ timestamp:'".$row["timestamp"]."', tempin:".$row["tempin"].", tempout:".$row["tempout"].", hum:".$row["hum"]."}, ";
 }
 $chart_data = substr($chart_data, 0, -2);
 
@@ -80,7 +80,8 @@ $chart_data = substr($chart_data, 0, -2);
 		    labels:['Sicaklik', 'Buzdolabi', 'Nem'],
 			lineColors:['#ffff00' , '#3ADFFF' , '#B000E8' ],
 		    hideHover:'auto',
-		    //stacked:true
+			parseTime:true,
+		    stacked:true
 		});
 	</script>
 </html>
