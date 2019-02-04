@@ -38,6 +38,7 @@ $chart_data = substr($chart_data, 0, -2);
 			.headers{ color:#000000; }
 			.buttons{margin-right:15px; margin-left:15px; }
 			.button:hover { background-color: #4CAF50; color: white;}
+			.graph-header{ text-align:center; }
 			img{width:80px; height:80px; }
 			th{text-align:center;}
 			</style>
@@ -55,7 +56,7 @@ $chart_data = substr($chart_data, 0, -2);
 				<?php include 'api/now.php'; ?>
 			</tr>
 			<tr align="center" style="text-align:center;">
-				<th align="center" style="text-align:center;"><h1>Tüm Değelerin Grafiği</h1></th>
+				<th class="graph-header" align="center" style="text-align:center;"><h1>Tüm Değerlerin Grafiği</h1></th>
 			</tr>
 			<tr>
 				<td class="linegraph"> <div id="chart"></div> </td>
@@ -78,7 +79,7 @@ $chart_data = substr($chart_data, 0, -2);
 		    xkey:'timestamp',
 		    ykeys:['tempout', 'tempin', 'hum'],
 		    labels:['Sicaklik', 'Buzdolabi', 'Nem'],
-			lineColors:['#ffff00' , '#3ADFFF' , '#B000E8' ],
+			lineColors:['#E95624' , '#1A64E7' , '#1ADC7B' ],
 		    hideHover:'auto',
 			parseTime:true,
 		    stacked:true
