@@ -6,7 +6,7 @@ require_once($filepath."/api/dbconfig.php");
 $num_days = 03;
 date_default_timezone_set('Europe/Istanbul');
 $connect = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD, DB_DATABASE);
-$query = "SELECT * FROM " .DB_TABLE.;
+$query = "SELECT * FROM " .DB_TABLE. "";
 $result = mysqli_query($connect, $query);
 $chart_data = '';
 while($row = mysqli_fetch_array($result))
