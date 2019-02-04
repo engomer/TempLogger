@@ -50,7 +50,7 @@
             }
             $results = mysqli_query($connect,"SELECT * FROM log ORDER BY id");
             while($row = mysqli_fetch_array($results)) {
-                $end_date = date("Y-m-d h:m:s", strtotime("+" .3. " hours", strtotime($row["timestamp"])));
+                $end_date = date("Y-m-d H:i:s", strtotime("+" . 3 . " hours", strtotime($row["timestamp"])));
             ?>
                 <tr>
                     <td><?php echo $row['id']?></td>
