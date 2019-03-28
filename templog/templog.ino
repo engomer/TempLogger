@@ -26,8 +26,8 @@
 //LIBRARY DECLERATION ENDS
 
 //WIFI STAFF STARTS
-const char* ssid= "gencay_eczanesi";
-const char* pwd = "sel20en00";
+const char* ssid= "WIFI SSID";
+const char* pwd = "WIFI PASSWORD";
 //WIFI STAFF ENDS
 
 //RESET STAFF STARTS
@@ -36,16 +36,16 @@ int count = 0;
 //RESET STAFF ENDS
 
 //EMAIL STAFF STARTS
-const char server[] = "mail.ogencay.com";
-const char* email = "sensor@ogencay.com";
-const char* email64 = "c2Vuc29yQG9nZW5jYXkuY29t";
-const char* pwdmail = "1510OMer";
-const char* pwd64 = "MTUxME9NZXI=";
+const char server[] = "SMTP MAIL SERVER";
+const char* email = "MAIL ADDRESS";
+const char* email64 = "MAIL ADDRESS BASE 64 FORMAT";
+const char* pwdmail = "MAIL PASSWORD";
+const char* pwd64 = "MAIL PASSWORD BASE 64 FORMAT";
 WiFiClient espClient; 
 //EMAIL STAFF ENDS
 
 //DATABASE STAFF BEGINS
-char host[] = "templog.herokuapp.com";
+char host[] = "HOST SERVER";
 const int httpPort = 80;
 //DATABASE STAFF ENDS
 
@@ -244,7 +244,7 @@ byte sendEmail(float tempin, float tempout, float hum) //SENDS MAIL USING THE AD
     return 0;
     
   Serial.println(F("Sending EHLO"));
-  espClient.println("EHLO mail.ogencay.com");
+  espClient.println("EHLO <SMTP SERVER>");
   if (!emailResp()) 
     return 0;
   Serial.println(F("Sending auth plain"));
@@ -253,22 +253,22 @@ byte sendEmail(float tempin, float tempout, float hum) //SENDS MAIL USING THE AD
     return 0;
     
   Serial.println(F("Sending User"));
-  espClient.println("c2Vuc29yQG9nZW5jYXkuY29t"); //base64, ASCII encoded Username
+  espClient.println("<MAIL ADDRESS BASE 64>"); //base64, ASCII encoded Username
   if (!emailResp()) 
     return 0;
   
   Serial.println(F("Sending Password"));
-  espClient.println("MTUxME9NZXI=");//base64, ASCII encoded Password
+  espClient.println("<PASSWORD BASE 64>");//base64, ASCII encoded Password
   if (!emailResp()) 
     return 0;
   
   Serial.println(F("Sending From"));
-  espClient.println(F("MAIL From: sensor@ogencay.com"));
+  espClient.println(F("MAIL From: <MAIL ADDRESS>"));
   if (!emailResp()) 
     return 0;
   
   Serial.println(F("Sending To"));
-  espClient.println(F("RCPT To: nermintiftikci@hotmail.com"));
+  espClient.println(F("RCPT To: <RECIPIENT MAIL ADDRESS>"));
   if (!emailResp()) 
     return 0;
   
@@ -278,9 +278,9 @@ byte sendEmail(float tempin, float tempout, float hum) //SENDS MAIL USING THE AD
     return 0;
   Serial.println(F("Sending email"));
   
-  espClient.println(F("To:  nermintiftikci@hotmail.com"));
+  espClient.println(F("To:  <RECIPIENT MAIL ADDRESS>"));
   
-  espClient.println(F("From: sensor@ogencay.com"));
+  espClient.println(F("From: <MAIL ADDRESS>"));
  
   espClient.println(F("Subject: TEMPERATURE AND HUMIDITY SENSOR\r\n"));
   espClient.println(F("YOUR MEASUREMENTS ARE NOT GOOD PLEASE CHECK IT BELOW\n"));
