@@ -22,7 +22,7 @@ $body = $_GET['body'];
 $mail->AddAddress($mailto); // Gönderilecek kişi
 
 $mail->Subject = $subject;
-$mail->Body = "$name<br />$email<br />$subject<br />$body";
+$mail->Body = "<br />Templog Ölçüm Sensörü<br />$body";
 
 if(!$mail->Send()){
                 echo "Mailer Error: ".$mail->ErrorInfo;
