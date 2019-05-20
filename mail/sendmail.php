@@ -12,7 +12,7 @@ $mail->SetLanguage("tr", "phpmailer/language");
 $mail->CharSet  ="utf-8";
 
 $mail->Username = "omergsensor@gmail.com"; // Mail adresi
-$mail->Password = "15101998omer"; // Parola
+$mail->Password = "hdxomaxafdyljaki"; // Parola
 $mail->SetFrom("omergsensor@gmail.com", "ÖmerG"); // Mail adresi
 
 $mail->AddAddress("ogencay98@gmail.com"); // Gönderilecek kişi
