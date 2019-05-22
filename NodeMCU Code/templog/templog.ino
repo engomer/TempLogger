@@ -234,7 +234,7 @@ void sendDB(float tempin,float tempout,float hum)
   if (!client.connect(host, 80)) { Serial.println("connection failed"); return;}
   
   
-  String url = "/38df0b72-86cc-412f-805b-7a6c27554ad5/api/insert.php?tempin=" + String(tempin) +"&tempout=" + String(tempout) + "&hum="+ String(hum);
+  String url = "/api/38df0b72-86cc-412f-805b-7a6c27554ad5/insert.php?tempin=" + String(tempin) +"&tempout=" + String(tempout) + "&hum="+ String(hum);
   Serial.print("Requesting URL: ");
   Serial.println(url);
   
@@ -264,7 +264,7 @@ void sendMail(float tempin,float tempout,float hum)
   if (!client.connect(host, 80)) { Serial.println("connection failed"); return;}
   
   
-  String url = "/38df0b72-86cc-412f-805b-7a6c27554ad5/api/mail/sendmail.php?mailto=" + String(rcp) +"&subject=" + String(subject) + "&body=Ölçümleriniz%20istenilen%20aralıkta%20değil,%20lütfen%20kontrol%20edin.<br/>Oda:%20"
+  String url = "/api/38df0b72-86cc-412f-805b-7a6c27554ad5/sendmail.php?mailto=" + String(rcp) +"&subject=" + String(subject) + "&body=Ölçümleriniz%20istenilen%20aralıkta%20değil,%20lütfen%20kontrol%20edin.<br/>Oda:%20"
                 + String(tempout) + "%20Dolap:%20" + String(tempin) + "%20Nem:%20" + String(hum);
   Serial.print("Requesting URL: ");
   Serial.println(url);
