@@ -64,8 +64,8 @@ $chart_data = substr($chart_data, 0, -2);
 		</table>
 		<table align="center">	
 			<tr "width:50px;">
-				<td class="buttons" style="padding:70px;"><a href="/38df0b72-86cc-412f-805b-7a6c27554ad5/api/daily_index.php"><button>Günlük Değerleri Göster</button></a></td>
-				<td class="buttons" style="padding:70px;" ><a href="/38df0b72-86cc-412f-805b-7a6c27554ad5/api/all_index.php"><button>Tüm Değerleri Göster</button></a></td>
+				<td class="buttons" style="padding:70px;"><a href="/api/daily_index.php"><button>Günlük Değerleri Göster</button></a></td>
+				<td class="buttons" style="padding:70px;" ><a href="/api/all_index.php"><button>Tüm Değerleri Göster</button></a></td>
 			</tr>
 			
 		</table>
