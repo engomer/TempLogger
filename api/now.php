@@ -22,7 +22,7 @@
         <tbody>
         <?php
             $filepath = realpath (dirname(__FILE__));
-            require_once($filepath."/dbconfig.php");
+            require_once($filepath."/38df0b72-86cc-412f-805b-7a6c27554ad5/dbconfig.php");
             $connect = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD, DB_DATABASE);
             if (!$connect) {
                 die(mysql_error());
