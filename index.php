@@ -1,7 +1,7 @@
 <?php 
 
 $filepath = realpath (dirname(__FILE__));
-require_once($filepath."/api/38df0b72-86cc-412f-805b-7a6c27554ad5/dbconfig.php");
+require_once($filepath."api/38df0b72-86cc-412f-805b-7a6c27554ad5/dbconfig.php");
 
 $num_days = 03;
 date_default_timezone_set('Europe/Istanbul');
