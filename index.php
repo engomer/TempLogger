@@ -1,7 +1,7 @@
 <?php 
 
 $filepath = realpath (dirname(__FILE__));
-require_once($filepath."/38df0b72-86cc-412f-805b-7a6c27554ad5/api/dbconfig.php");
+require_once($filepath."/api/dbconfig.php");
 
 $num_days = 03;
 date_default_timezone_set('Europe/Istanbul');
@@ -53,7 +53,7 @@ $chart_data = substr($chart_data, 0, -2);
 		</p>
 		<table align="center" style="width:70%">
 			<tr >
-				<?php include '38df0b72-86cc-412f-805b-7a6c27554ad5/api/now.php'; ?>
+				<?php include 'api/now.php'; ?>
 			</tr>
 			<tr align="center" style="text-align:center;">
 				<th class="graph-header" align="center" style="text-align:center;"><h1><center>Tüm Değerlerin Grafiği</center></h1></th>
