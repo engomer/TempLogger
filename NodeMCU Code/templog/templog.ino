@@ -6,7 +6,7 @@
  * January 2019
  */
 
-
+// API KEY : 38df0b72-86cc-412f-805b-7a6c27554ad5
 /*  
     dht pin = d0
     scl = d1
@@ -17,7 +17,7 @@
 //LIBRARY DECLERATION STARTS
 #include <OneWire.h>
 #include <DallasTemperature.h>
-#include <dht.h>
+#include "DHT.h"
 #include <LiquidCrystal_I2C.h>
 #include <Wire.h>
 #include <ESP8266WiFi.h>
@@ -26,8 +26,8 @@
 //LIBRARY DECLERATION ENDS
 
 //WIFI STAFF STARTS
-const char* ssid= "gencay_eczanesi";
-const char* pwd = "sel20en00";
+const char* ssid= "WİFİ SSID";
+const char* pwd = "PASSWORD";
 //WIFI STAFF ENDS
 
 //RESET STAFF STARTS
@@ -36,12 +36,8 @@ int count = 0;
 //RESET STAFF ENDS
 
 //EMAIL STAFF STARTS
-const char server[] = "mail.ogencay.com";
-const char* email = "sensor@ogencay.com";
-const char* email64 = "c2Vuc29yQG9nZW5jYXkuY29t";
-const char* pwdmail = "1510OMer";
-const char* pwd64 = "MTUxME9NZXI=";
-WiFiClient espClient; 
+const char* rcp;
+const char* subject = "Templogger%20Sensör%20Değerleri%20Uyumsuz!";
 //EMAIL STAFF ENDS
 
 //DATABASE STAFF BEGINS
@@ -63,7 +59,7 @@ LiquidCrystal_I2C lcd(0x27, 16, 2);
 #define DHTTYPE DHT11
 OneWire oneWire(ONEWIREPIN);
 DallasTemperature wire(&oneWire);
-dht DHT;
+DHT dht(DHTPIN, DHTTYPE);
 float hum;
 float tempout;
 float tempin;
@@ -72,8 +68,7 @@ char buffer[10];
 
 //FUNCTIONS DECLERATION STARTS
 void measure();
-byte emailResp();
-byte sendEmail(float tempin, float tempout, float hum);
+void sendMail(float tempin, float tempout, float hum);
 void print2screen(float tempin, float tempout, float hum);
 void printerror(char* error);
 bool isinok(float temp);
@@ -116,7 +111,7 @@ void chk() // CHECKS VALUES IF THEY ARE NOT GOOD SENDS MAIL AND BEEPS THE BUZZER
 {
   if(isinok(tempin)==0 || isouttempok(tempout)==0 || ishumok(hum)==0)
   {
-   sendEmail(tempin,tempout,hum);
+   sendMail(tempin,tempout,hum);
    buzerror();
    delay(1000); 
   }
@@ -124,7 +119,7 @@ void chk() // CHECKS VALUES IF THEY ARE NOT GOOD SENDS MAIL AND BEEPS THE BUZZER
 
 void measure() // MEASURE 3 VALUES ROOM TEMPERATURE, HUMIDITY AND FRIDGE TEMPERATURE
 {
-  DHT.read11(DHTPIN);
+  
   wire.requestTemperatures();
 
   Serial.print("Fridge Temp: ");
@@ -133,13 +128,13 @@ void measure() // MEASURE 3 VALUES ROOM TEMPERATURE, HUMIDITY AND FRIDGE TEMPERA
   
   Serial.print("\t");
   Serial.print("Current Temp: ");
-  Serial.print(DHT.temperature);
-  tempout = DHT.temperature;
+  Serial.print(dht.readTemperature());
+  tempout = dht.readTemperature();
   
   Serial.print("\t");
   Serial.print("Current Humidity: ");
-  Serial.print(DHT.humidity);
-  hum = DHT.humidity;
+  Serial.print(dht.readHumidity());
+  hum = dht.readHumidity();
 
   Serial.println("");
   delay(600);
@@ -228,113 +223,6 @@ void connect2WiFi() // CONNECT WIFI AND PRINT CREDITENDALS
     Serial.println(WiFi.localIP());
 }
 
-byte sendEmail(float tempin, float tempout, float hum) //SENDS MAIL USING THE ADDRES: sensor@ogencay.com
-{
-  
-  if (espClient.connect(server, 587) == 1) 
-  {
-    Serial.println(F("connected"));
-  } 
-  else 
-  {
-    Serial.println(F("connection failed"));
-    return 0;
-  }
-  if (!emailResp()) 
-    return 0;
-    
-  Serial.println(F("Sending EHLO"));
-  espClient.println("EHLO mail.ogencay.com");
-  if (!emailResp()) 
-    return 0;
-  Serial.println(F("Sending auth plain"));
-  espClient.println("AUTH LOGIN");
-  if (!emailResp()) 
-    return 0;
-    
-  Serial.println(F("Sending User"));
-  espClient.println("c2Vuc29yQG9nZW5jYXkuY29t"); //base64, ASCII encoded Username
-  if (!emailResp()) 
-    return 0;
-  
-  Serial.println(F("Sending Password"));
-  espClient.println("MTUxME9NZXI=");//base64, ASCII encoded Password
-  if (!emailResp()) 
-    return 0;
-  
-  Serial.println(F("Sending From"));
-  espClient.println(F("MAIL From: sensor@ogencay.com"));
-  if (!emailResp()) 
-    return 0;
-  
-  Serial.println(F("Sending To"));
-  espClient.println(F("RCPT To: nermintiftikci@hotmail.com"));
-  if (!emailResp()) 
-    return 0;
-  
-  Serial.println(F("Sending DATA"));
-  espClient.println(F("DATA"));
-  if (!emailResp()) 
-    return 0;
-  Serial.println(F("Sending email"));
-  
-  espClient.println(F("To:  nermintiftikci@hotmail.com"));
-  
-  espClient.println(F("From: sensor@ogencay.com"));
- 
-  espClient.println(F("Subject: TEMPERATURE AND HUMIDITY SENSOR\r\n"));
-  espClient.println(F("YOUR MEASUREMENTS ARE NOT GOOD PLEASE CHECK IT BELOW\n"));
-  if(tempin<2 || tempin > 8)
-  espClient.println("INSIDE TEMPERATURE IS NOT BETWEEN 2-8 C. INSIDE TEMPERATURE = " + String(dtostrf(tempin,3,2,buffer)) + " C"); 
-  if(tempout<15 || tempout > 25)
-  espClient.println("OUTSIDE TEMPERATURE IS NOT BETWEEN 15-25 C. OUTSIDE TEMPERATURE = " + String(dtostrf(tempout,3,2,buffer)) + " C"); 
-  if(hum > 65)
-  espClient.println("HUMIDITY IS BIGGER THAN 65% . HUMIDITY = " + String(dtostrf(hum,3,2,buffer)) + "%"); 
-  
-  espClient.println(F("."));
-  if (!emailResp()) 
-    return 0;
-  Serial.println(F("Sending QUIT"));
-  espClient.println(F("QUIT"));
-  if (!emailResp()) 
-    return 0;
-  espClient.stop();
-  Serial.println(F("disconnected"));
-  return 1;
-}
-
-byte emailResp() // READS THE CLIENT FOR E MAIL RESPONSE TO CHECK IT HAS BEEN SENT OR NOT
-{
-  byte responseCode;
-  byte readByte;
-  int loopCount = 0;
-
-  while (!espClient.available()) 
-  {
-    delay(1);
-    loopCount++;
-    // Wait for 20 seconds and if nothing is received, stop.
-    if (loopCount > 300000) 
-    {
-      espClient.stop();
-      Serial.println(F("\r\nTimeout"));
-      return 0;
-    }
-  }
-
-  responseCode = espClient.peek();
-  while (espClient.available())
-  {
-    readByte = espClient.read();
-    Serial.write(readByte);
-  }
-
-  if (responseCode >= '4')
-  {
-   return 0;
-  }
-  return 1;
-}
 
 void sendDB(float tempin,float tempout,float hum)
 {
@@ -346,7 +234,38 @@ void sendDB(float tempin,float tempout,float hum)
   if (!client.connect(host, 80)) { Serial.println("connection failed"); return;}
   
   
-  String url = "/api/insert.php?tempin=" + String(tempin) +"&tempout=" + String(tempout) + "&hum="+ String(hum);
+  String url = "/38df0b72-86cc-412f-805b-7a6c27554ad5/api/insert.php?tempin=" + String(tempin) +"&tempout=" + String(tempout) + "&hum="+ String(hum);
+  Serial.print("Requesting URL: ");
+  Serial.println(url);
+  
+  client.print("GET " + url + " HTTP/1.0\r\n" +
+               "Host: " + host + "\r\n" +
+               "Connection: close\r\n\r\n");
+  delay(500);
+ 
+  while(client.available()){
+    String line = client.readStringUntil('\r');
+    Serial.print(line);
+  }
+  
+  Serial.println();
+  Serial.println("closing connection");
+  delay(3000);
+  
+}
+
+void sendMail(float tempin,float tempout,float hum)
+{
+  Serial.print("connecting to ");
+  Serial.println(host);
+ 
+  WiFiClient client;
+  
+  if (!client.connect(host, 80)) { Serial.println("connection failed"); return;}
+  
+  
+  String url = "/38df0b72-86cc-412f-805b-7a6c27554ad5/api/mail/sendmail.php?mailto=" + String(rcp) +"&subject=" + String(subject) + "&body=Ölçümleriniz%20istenilen%20aralıkta%20değil,%20lütfen%20kontrol%20edin.<br/>Oda:%20"
+                + String(tempout) + "%20Dolap:%20" + String(tempin) + "%20Nem:%20" + String(hum);
   Serial.print("Requesting URL: ");
   Serial.println(url);
   
