@@ -13,7 +13,7 @@ $mail->CharSet  ="utf-8";
 
 $mail->Username = "omergsensor@gmail.com"; // Mail adresi
 $mail->Password = "hdxomaxafdyljaki"; // Parola
-$mail->SetFrom("omergsensor@gmail.com", "ÖmerG"); // Mail adresi
+$mail->SetFrom("omergsensor@gmail.com", "Isı-Nem Sensörü"); // Mail adresi
 
 if(isset($_GET['mailto']) && isset($_GET['subject']) && isset($_GET['body'])){ 
 $mailto = $_GET['mailto'];
