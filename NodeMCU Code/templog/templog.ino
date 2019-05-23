@@ -8,7 +8,7 @@
 
 // API KEY : 38df0b72-86cc-412f-805b-7a6c27554ad5
 /*  
-    dht pin = d0
+    dht pin = d6
     scl = d1
     sda = d2
     onewire = d3
@@ -26,8 +26,8 @@
 //LIBRARY DECLERATION ENDS
 
 //WIFI STAFF STARTS
-const char* ssid= "WİFİ SSID";
-const char* pwd = "PASSWORD";
+const char* ssid= "gencay_eczanesi";
+const char* pwd = "sel20en00";
 //WIFI STAFF ENDS
 
 //RESET STAFF STARTS
@@ -36,7 +36,6 @@ int count = 0;
 //RESET STAFF ENDS
 
 //EMAIL STAFF STARTS
-const char* rcp;
 const char* subject = "Templogger%20Sensör%20Değerleri%20Uyumsuz!";
 //EMAIL STAFF ENDS
 
@@ -54,7 +53,7 @@ LiquidCrystal_I2C lcd(0x27, 16, 2);
 //BUZZER STAFF ENDS
 
 //MEASUREMENT STAFF DECLERATION STARTS
-#define DHTPIN 16
+#define DHTPIN 12
 #define ONEWIREPIN 0
 #define DHTTYPE DHT11
 OneWire oneWire(ONEWIREPIN);
@@ -84,6 +83,7 @@ void setup() {
   Serial.begin(115200);
   delay(100);
   wire.begin();
+  dht.begin();
   lcd.init();
   lcd.backlight();
   lcd.setCursor(0,1);
@@ -145,7 +145,7 @@ void print2screen(float tempin, float tempout, float hum) // PRINTS THE MEASUREM
   lcd.clear();
   lcd.home();
   
-  lcd.print("T1:   T2:   Hum:");
+  lcd.print("T1:   T2:   Nem:");
   lcd.setCursor(0,1);
   lcd.print(tempout, 1);
   lcd.print("  ");
@@ -264,7 +264,7 @@ void sendMail(float tempin,float tempout,float hum)
   if (!client.connect(host, 80)) { Serial.println("connection failed"); return;}
   
   
-  String url = "/api/38df0b72-86cc-412f-805b-7a6c27554ad5/sendmail.php?mailto=" + String(rcp) +"&subject=" + String(subject) + "&body=Ölçümleriniz%20istenilen%20aralıkta%20değil,%20lütfen%20kontrol%20edin.<br/>Oda:%20"
+  String url = "/api/38df0b72-86cc-412f-805b-7a6c27554ad5/sendmail.php?&subject=" + String(subject) + "&body=Ölçümleriniz%20istenilen%20aralıkta%20değil,%20lütfen%20kontrol%20edin.<br/>Oda:%20"
                 + String(tempout) + "%20Dolap:%20" + String(tempin) + "%20Nem:%20" + String(hum);
   Serial.print("Requesting URL: ");
   Serial.println(url);
