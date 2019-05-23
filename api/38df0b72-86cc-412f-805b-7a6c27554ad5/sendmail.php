@@ -14,7 +14,7 @@ $mail->CharSet  ="utf-8";
 $mail->Username = "omergsensor@gmail.com"; // Mail adresi
 $mail->Password = "hdxomaxafdyljaki"; // Parola
 $mail->SetFrom("omergsensor@gmail.com", "Isı-Nem Sensörü"); // Mail adresi
-$mailto->mailto = "ogencay98@gmail.com";
+$mail->mailto = "ogencay98@gmail.com";
 
 if(isset($_GET['subject']) && isset($_GET['body'])){ 
 $subject = $_GET['subject'];

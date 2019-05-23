@@ -91,6 +91,7 @@ void setup() {
   delay(500);
   pinMode(BUZZERPIN, OUTPUT);
   connect2WiFi();
+  sendMail(tempin,tempout,hum);
   printerror("Wifi Baglandi");
   measure();
   printerror("Hazirlaniyor..");
