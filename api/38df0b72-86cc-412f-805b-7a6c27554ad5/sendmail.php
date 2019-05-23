@@ -14,12 +14,12 @@ $mail->CharSet  ="utf-8";
 $mail->Username = "omergsensor@gmail.com"; // Mail adresi
 $mail->Password = "hdxomaxafdyljaki"; // Parola
 $mail->SetFrom("omergsensor@gmail.com", "Isı-Nem Sensörü"); // Mail adresi
-$mail->mailto = "ogencay98@gmail.com";
+
 
 if(isset($_GET['subject']) && isset($_GET['body'])){ 
 $subject = $_GET['subject'];
 $body = $_GET['body'];
-$mail->AddAddress($mailto); // Gönderilecek kişi
+$mail->AddAddress("ogencay98@gmail.com"); // Gönderilecek kişi
 
 $mail->Subject = $subject;
 $mail->Body = "<br />Templog Ölçüm Sensörü<br />$body";
