@@ -1,4 +1,7 @@
 <html>
+<!-- 
+    THIS CODE FOR INSTANT VALUES 
+-->
     <head>
         <title>Now</title>
         <style>
@@ -22,17 +25,17 @@
         <tbody>
         <?php
             $filepath = realpath (dirname(__FILE__));
-            require_once($filepath."/38df0b72-86cc-412f-805b-7a6c27554ad5/dbconfig.php");
+            require_once($filepath."/dbconfig.php");
             $connect = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD, DB_DATABASE);
             if (!$connect) {
                 die(mysql_error());
             }
-            $results = mysqli_query($connect,"SELECT * FROM log ORDER BY id DESC LIMIT 1");
+            $results = mysqli_query($connect,"SELECT * FROM log ORDER BY id DESC LIMIT 1"); //SQL QUERY FOR INSTANT VALUES
             while($row = mysqli_fetch_array($results)) {
             
-                $tempin = $row['tempin'];
-                $tempout = $row['tempout'];
-                $hum = $row['hum'];
+                $tempin = $row['DBCOLUMN1'];
+                $tempout = $row['DBCOLUMN2'];
+                $hum = $row['DBCOLUMN3'];
             }
             ?>
                 

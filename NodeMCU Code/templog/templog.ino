@@ -1,12 +1,12 @@
 /* Temperature chechker, database logger, mail sender and alarm system for pharmacies 
- * Version: v1.0 
+ * Version: v2.0 
  * Unauthorized copying of this file, via any medium is strictly prohibited
  * Proprietary and confidential
- * Written by Ömer Gençay <ogencay98@gmail.com> <+905396455196> 
+ * Written by Ömer Gençay <ogencay98@gmail.com> <engomer>
  * January 2019
  */
 
-// API KEY : 38df0b72-86cc-412f-805b-7a6c27554ad5
+
 /*  
     dht pin = d6
     scl = d1
@@ -26,8 +26,8 @@
 //LIBRARY DECLERATION ENDS
 
 //WIFI STAFF STARTS
-const char* ssid= "gencay_eczanesi";
-const char* pwd = "sel20en00";
+const char* ssid= "WIFI SSID";
+const char* pwd = "WIFI PASSWORD";
 //WIFI STAFF ENDS
 
 //RESET STAFF STARTS
@@ -36,25 +36,25 @@ int count = 0;
 //RESET STAFF ENDS
 
 //EMAIL STAFF STARTS
-const char* subject = "Templogger%20Sensör%20Değerleri%20Uyumsuz!";
+const char* subject = "MAIL SUBJECT";
 //EMAIL STAFF ENDS
 
 //DATABASE STAFF BEGINS
-char host[] = "templog.herokuapp.com";
+char host[] = "SERVER NAME";
 const int httpPort = 80;
 //DATABASE STAFF ENDS
 
 //LCD STAFF STARTS
-LiquidCrystal_I2C lcd(0x27, 16, 2);
+LiquidCrystal_I2C lcd(0x27 , 16, 2); //I2C ADDRESS
 //LCD STAFF STARTS
 
 //BUZZER STAFF STARTS
-#define BUZZERPIN 2
+#define BUZZERPIN 2 //BUZZER PIN
 //BUZZER STAFF ENDS
 
 //MEASUREMENT STAFF DECLERATION STARTS
-#define DHTPIN 12
-#define ONEWIREPIN 0
+#define DHTPIN 12 //DHTPIN
+#define ONEWIREPIN 0 
 #define DHTTYPE DHT11
 OneWire oneWire(ONEWIREPIN);
 DallasTemperature wire(&oneWire);
@@ -87,17 +87,17 @@ void setup() {
   lcd.init();
   lcd.backlight();
   lcd.setCursor(0,1);
-  lcd.print("Merhaba");
+  lcd.print("HELLO");
   delay(500);
   lcd.clear();
-  lcd.print("Isi-Nem Sensoru");
+  lcd.print("TEMPERATURE SENSOR");
   lcd.setCursor(0,1);
-  lcd.print("Omer Gencay");
+  lcd.print("PLACEHOLDER");
   pinMode(BUZZERPIN, OUTPUT);
   connect2WiFi();
-  printerror("Wifi Baglandi");
+  printerror("Wifi CONNECTED");
   measure();
-  printerror("Hazirlaniyor..");
+  printerror("PREPARING..");
   delay(10000);
   print2screen(tempin,tempout,hum);  
 }
@@ -238,7 +238,7 @@ void sendDB(float tempin,float tempout,float hum)
   if (!client.connect(host, 80)) { Serial.println("connection failed"); return;}
   
   
-  String url = "/api/38df0b72-86cc-412f-805b-7a6c27554ad5/insert.php?tempin=" + String(tempin) +"&tempout=" + String(tempout) + "&hum="+ String(hum);
+  String url = "/api/insert.php?tempin=" + String(tempin) +"&tempout=" + String(tempout) + "&hum="+ String(hum);
   Serial.print("Requesting URL: ");
   Serial.println(url);
   
@@ -268,8 +268,8 @@ void sendMail(float tempin,float tempout,float hum)
   if (!client.connect(host, 80)) { Serial.println("connection failed"); return;}
   
   
-  String url = "/api/38df0b72-86cc-412f-805b-7a6c27554ad5/sendmail.php?&subject=" + String(subject) + "&body=Ölçümleriniz%20istenilen%20aralıkta%20değil,%20lütfen%20kontrol%20edin.<br/>Oda:%20"
-                + String(tempout) + "%20Dolap:%20" + String(tempin) + "%20Nem:%20" + String(hum);
+  String url = "/api/mail/sendmail.php?&subject=" + String(subject) + "&body=PLACEHOLDER.<br/>ROOM:%20"
+                + String(tempout) + "%20FRIDGE:%20" + String(tempin) + "%20HUMIDITY:%20" + String(hum);
   Serial.print("Requesting URL: ");
   Serial.println(url);
   

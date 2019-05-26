@@ -1,0 +1,7 @@
+<?php
+define('DB_USER', "DATABASE USERNAME");
+define('DB_PASSWORD', "DATABASE PASSWORD");
+define('DB_SERVER' , "DATABASE SERVER");
+define('DB_DATABASE', "DATABASE NAME");
+define('DB_TABLE', "TABLE NAME");
+?>

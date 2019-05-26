@@ -1,6 +1,10 @@
 <html>
+<!--  
+    CHANGE COLUMN NAMES WITH REQUIRED VALUES
+    DATABASE CONFIGURATION FILE IS ON API FOLDER
+-->
     <head>
-        <title>Tüm Değerler</title>
+        <title>All Logs</title>
         <style>
             table {
                 border-collapse: collapse;
@@ -26,36 +30,36 @@
     </head>
     <body>
         <div align="center">    
-            <h1> Gençay Eczanesi </h1>
-            <h2> Tüm Değerler </h2>
+            <h1>Title</h1>
+            <h2>All Logs</h2>
         </div>
         <table class="table1" align="center">
         <thead>
             <tr>
-                <td>Tarih</td>
-                <td>Buzdolabı</td>
-                <td>Oda</td>
-                <td>Nem</td>
+                <td>Column1</td>
+                <td>Column2</td>
+                <td>Column3</td>
+                <td>Column4</td>
                
             </tr>
         </thead>
         <tbody>
         <?php
             $filepath = realpath (dirname(__FILE__));
-            require_once($filepath."/38df0b72-86cc-412f-805b-7a6c27554ad5/dbconfig.php");
+            require_once($filepath."/dbconfig.php");
             $connect = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD, DB_DATABASE);
             if (!$connect) {
                 die(mysql_error());
             }
             $results = mysqli_query($connect,"SELECT * FROM " .DB_TABLE. " ORDER BY id");
             while($row = mysqli_fetch_array($results)) {
-                $end_date = date("Y-m-d H:i:s", strtotime("+" . 3 . " hours", strtotime($row["timestamp"])));
+                $end_date = date("Y-m-d H:i:s", strtotime("+" . 3 . " hours", strtotime($row["columnName"]))); //this row for the timezone difference
             ?>
                 <tr>
                     <td><?php echo $end_date?></td>
-                    <td><?php echo $row['tempin']?></td>
-                    <td><?php echo $row['tempout']?></td>
-                    <td><?php echo $row['hum']?></td>
+                    <td><?php echo $row['db_column1']?></td> <!-- Change this values with database column names -->
+                    <td><?php echo $row['db_column2']?></td>
+                    <td><?php echo $row['db_column3']?></td>
                 </tr>
 
             <?php
