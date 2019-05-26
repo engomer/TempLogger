@@ -89,9 +89,12 @@ void setup() {
   lcd.setCursor(0,1);
   lcd.print("Merhaba");
   delay(500);
+  lcd.clear();
+  lcd.print("Isi-Nem Sensoru");
+  lcd.setCursor(0,1);
+  lcd.print("Omer Gencay");
   pinMode(BUZZERPIN, OUTPUT);
   connect2WiFi();
-  sendMail(tempin,tempout,hum);
   printerror("Wifi Baglandi");
   measure();
   printerror("Hazirlaniyor..");
