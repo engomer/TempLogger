@@ -36,11 +36,24 @@ int count = 0;
 //RESET STAFF ENDS
 
 //EMAIL STAFF STARTS
+<<<<<<< HEAD:NodeMCU Code/templog/templog.ino
 const char* subject = "MAIL SUBJECT";
 //EMAIL STAFF ENDS
 
 //DATABASE STAFF BEGINS
 char host[] = "SERVER NAME";
+=======
+const char server[] = "SMTP MAIL SERVER";
+const char* email = "MAIL ADDRESS";
+const char* email64 = "MAIL ADDRESS BASE 64 FORMAT";
+const char* pwdmail = "MAIL PASSWORD";
+const char* pwd64 = "MAIL PASSWORD BASE 64 FORMAT";
+WiFiClient espClient; 
+//EMAIL STAFF ENDS
+
+//DATABASE STAFF BEGINS
+char host[] = "HOST SERVER";
+>>>>>>> 516dc191250a61fe6cc9f2fb60d8fd35f50fc8d5:templog/templog.ino
 const int httpPort = 80;
 //DATABASE STAFF ENDS
 
@@ -235,9 +248,53 @@ void sendDB(float tempin,float tempout,float hum)
  
   WiFiClient client;
   
+<<<<<<< HEAD:NodeMCU Code/templog/templog.ino
   if (!client.connect(host, 80)) { Serial.println("connection failed"); return;}
+=======
+  if (espClient.connect(server, 587) == 1) 
+  {
+    Serial.println(F("connected"));
+  } 
+  else 
+  {
+    Serial.println(F("connection failed"));
+    return 0;
+  }
+  if (!emailResp()) 
+    return 0;
+    
+  Serial.println(F("Sending EHLO"));
+  espClient.println("EHLO <SMTP SERVER>");
+  if (!emailResp()) 
+    return 0;
+  Serial.println(F("Sending auth plain"));
+  espClient.println("AUTH LOGIN");
+  if (!emailResp()) 
+    return 0;
+    
+  Serial.println(F("Sending User"));
+  espClient.println("<MAIL ADDRESS BASE 64>"); //base64, ASCII encoded Username
+  if (!emailResp()) 
+    return 0;
+  
+  Serial.println(F("Sending Password"));
+  espClient.println("<PASSWORD BASE 64>");//base64, ASCII encoded Password
+  if (!emailResp()) 
+    return 0;
+  
+  Serial.println(F("Sending From"));
+  espClient.println(F("MAIL From: <MAIL ADDRESS>"));
+  if (!emailResp()) 
+    return 0;
+  
+  Serial.println(F("Sending To"));
+  espClient.println(F("RCPT To: <RECIPIENT MAIL ADDRESS>"));
+  if (!emailResp()) 
+    return 0;
+>>>>>>> 516dc191250a61fe6cc9f2fb60d8fd35f50fc8d5:templog/templog.ino
   
   
+<<<<<<< HEAD:NodeMCU Code/templog/templog.ino
   String url = "/api/insert.php?tempin=" + String(tempin) +"&tempout=" + String(tempout) + "&hum="+ String(hum);
   Serial.print("Requesting URL: ");
   Serial.println(url);
@@ -246,6 +303,11 @@ void sendDB(float tempin,float tempout,float hum)
                "Host: " + host + "\r\n" +
                "Connection: close\r\n\r\n");
   delay(500);
+=======
+  espClient.println(F("To:  <RECIPIENT MAIL ADDRESS>"));
+  
+  espClient.println(F("From: <MAIL ADDRESS>"));
+>>>>>>> 516dc191250a61fe6cc9f2fb60d8fd35f50fc8d5:templog/templog.ino
  
   while(client.available()){
     String line = client.readStringUntil('\r');
