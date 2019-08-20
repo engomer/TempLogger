@@ -19,3 +19,5 @@ The API made with PHP and Heroku
 You can see the example here
 ## [Here is a Prototype](http://templog.herokuapp.com)
 
+##(https://github.com/engomer/TempLogger/issues/1#issue-482720252)
+
