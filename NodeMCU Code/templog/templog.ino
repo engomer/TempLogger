@@ -53,7 +53,6 @@ WiFiClient espClient;
 
 //DATABASE STAFF BEGINS
 char host[] = "HOST SERVER";
->>>>>>> 516dc191250a61fe6cc9f2fb60d8fd35f50fc8d5:templog/templog.ino
 const int httpPort = 80;
 //DATABASE STAFF ENDS
 
@@ -248,9 +247,9 @@ void sendDB(float tempin,float tempout,float hum)
  
   WiFiClient client;
   
-<<<<<<< HEAD:NodeMCU Code/templog/templog.ino
+
   if (!client.connect(host, 80)) { Serial.println("connection failed"); return;}
-=======
+
   if (espClient.connect(server, 587) == 1) 
   {
     Serial.println(F("connected"));
@@ -291,10 +290,7 @@ void sendDB(float tempin,float tempout,float hum)
   espClient.println(F("RCPT To: <RECIPIENT MAIL ADDRESS>"));
   if (!emailResp()) 
     return 0;
->>>>>>> 516dc191250a61fe6cc9f2fb60d8fd35f50fc8d5:templog/templog.ino
-  
-  
-<<<<<<< HEAD:NodeMCU Code/templog/templog.ino
+
   String url = "/api/insert.php?tempin=" + String(tempin) +"&tempout=" + String(tempout) + "&hum="+ String(hum);
   Serial.print("Requesting URL: ");
   Serial.println(url);
@@ -303,11 +299,11 @@ void sendDB(float tempin,float tempout,float hum)
                "Host: " + host + "\r\n" +
                "Connection: close\r\n\r\n");
   delay(500);
-=======
+
   espClient.println(F("To:  <RECIPIENT MAIL ADDRESS>"));
   
   espClient.println(F("From: <MAIL ADDRESS>"));
->>>>>>> 516dc191250a61fe6cc9f2fb60d8fd35f50fc8d5:templog/templog.ino
+
  
   while(client.available()){
     String line = client.readStringUntil('\r');
