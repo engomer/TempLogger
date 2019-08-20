@@ -17,5 +17,5 @@
 
 The API made with PHP and Heroku
 You can see the example here
-## [Here is a Prototype](templog.herokuapp.com)
+## [Here is a Prototype](http://templog.herokuapp.com)
 
