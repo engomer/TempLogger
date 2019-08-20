@@ -36,7 +36,6 @@ int count = 0;
 //RESET STAFF ENDS
 
 //EMAIL STAFF STARTS
-<<<<<<< HEAD:NodeMCU Code/templog/templog.ino
 const char* subject = "MAIL SUBJECT";
 //EMAIL STAFF ENDS
 
